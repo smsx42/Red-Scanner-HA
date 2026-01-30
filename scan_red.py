@@ -2,6 +2,14 @@ from scapy.all import ARP, Ether, srp
 import ipaddress
 from mac_vendor_lookup import MacLookup
 from config import IP_RANGE
+import socket
+
+def get_hostname(ip) :
+
+    try:
+        return socket.gethostbyaddr(ip)[0]
+    except:
+        return None
 
 def red_scan(ip_range) : 
 
@@ -19,6 +27,8 @@ def red_scan(ip_range) :
     for sent, received in result:
        
         mac = received.hwsrc
+        ip = received.psrc
+        #hostname = get_hostname(ip)
 
         try:
             vendor = mac_lookup.lookup(received.hwsrc)
@@ -26,9 +36,10 @@ def red_scan(ip_range) :
             vendor = "Unkown"
 
         devices.append({
-            "ip": received.psrc,
+            "ip": ip,
             "mac": mac,
-            "vendor": vendor
+            "vendor": vendor,
+            #"hostname": hostname
         })
 
     sorted_devices_ip = sorted(devices, key=lambda device: ipaddress.IPv4Address(device["ip"]))
