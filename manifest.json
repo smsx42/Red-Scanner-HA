@@ -1,0 +1,11 @@
+{
+  "domain": "red_scanner",
+  "name": "Red Scanner",
+  "version": "1.0.0",
+  "requirements": [
+    "scapy",
+    "mac-vendor-lookup"
+  ],
+  "codeowners": ["@smsx42"],
+  "iot_class": "local_polling"
+}
