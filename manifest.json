@@ -2,10 +2,8 @@
   "domain": "red_scanner",
   "name": "Red Scanner",
   "version": "1.0.0",
-  "requirements": [
-    "scapy",
-    "mac-vendor-lookup"
-  ],
+  "documentation": "https://github.com/smsx42/Red-Scanner-HA",
+  "requirements": [],
   "codeowners": ["@smsx42"],
   "iot_class": "local_polling"
 }

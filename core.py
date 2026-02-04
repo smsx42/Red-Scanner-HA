@@ -1,13 +1,23 @@
+"""Network scanner integration for Home Assistant.
+
+Discovers devices in the local network using Nmap and reports
+MAC address, IP, vendor, and optional hostname.
+"""
+
+
 import subprocess
 import re
 from typing import Dict
+import logging
 
 NMAP_CMD = ["nmap", "-sn", "-PR"]
+_LOGGER = logging.getLogger(__name__)
 
 def scan_red(cidr_ip) -> Dict[str, dict]:
 
     devices = {}
-    print("Escaneando red...")
+    #print(f"Escaneando la red {cidr_ip}...")
+    _LOGGER.debug("Escaneando red %s", cidr_ip)
 
     try:
         process = subprocess.run(
@@ -20,7 +30,7 @@ def scan_red(cidr_ip) -> Dict[str, dict]:
         print("Error al escanear la red con Nmap.")
 
     for line in process.stdout.splitlines():
-        
+
 
         if line.startswith("Nmap scan report for"):
             current_device = {}
@@ -50,14 +60,16 @@ def scan_red(cidr_ip) -> Dict[str, dict]:
                     "vendor": vendor,
                     "hostname": current_device["hostname"]
                 }
-            
-    return devices     
+    for mac, data in devices.items():
+        print(mac, data)
+        _LOGGER.debug(mac, data)
+
+    return devices
 
 devices = scan_red("192.168.0.1/24")
 
-for mac, data in devices.items():
-    print(mac, data)
 
 
-        
+
+
 
