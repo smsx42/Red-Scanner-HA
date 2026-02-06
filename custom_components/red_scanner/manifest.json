@@ -1,7 +1,7 @@
 {
   "domain": "red_scanner",
   "name": "Red Scanner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "documentation": "https://github.com/smsx42/Red-Scanner-HA",
   "requirements": [],
   "codeowners": ["@smsx42"],
